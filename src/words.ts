@@ -2,7 +2,7 @@ const defaultMessage = ' Using word of the day instead.'
 
 export function getWordOfTheDay() {
   // 请求后端返回的索引
-  const index = 100
+  const index = 101
   return answers[index]
 }
 
