@@ -2,7 +2,7 @@ import axios from 'axios';
 import {baseURL} from "./config";
 // import {BASE_URL} from "@/config";
 //  让请求在浏览器中允许跨域携带cookie
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 
 // 使用自定义配置新建一个 axios 实例
 const service= axios.create({
@@ -20,6 +20,7 @@ service.interceptors.request.use(config => {
 
     // @ts-ignore
       config.headers.token = localStorage.getItem('token');
+
 
   }
 

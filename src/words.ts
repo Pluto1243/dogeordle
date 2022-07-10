@@ -1,7 +1,7 @@
 const defaultMessage = ' Using word of the day instead.'
 import axios from "./utils/axios";
 
-const index = axios({
+const index = await axios({
     url: '/words/random-index',
     method: 'get'
 });
