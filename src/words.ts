@@ -19,6 +19,11 @@ export function getWordOfTheDay() {
     return answers[index]
 }
 
+export function getRandomWord() {
+  // @ts-ignore
+  return answers[Math.floor((Math.random()*(answers.length)))]
+}
+
 const allowedGuesses = [
   'aahed',
   'aalii',

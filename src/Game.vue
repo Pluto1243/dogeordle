@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onUnmounted } from 'vue'
-import { getWordOfTheDay, allWords } from './words'
+import { getWordOfTheDay, getRandomWord, allWords } from './words'
 import Keyboard from './Keyboard.vue'
 import { LetterState } from './types'
 
@@ -9,37 +9,6 @@ const dogeUI = "http://152.136.215.195:8082/dogUI/doge.gif";
 // dogeUrl
 const dogeSite = "http://152.136.215.195";
 
-// 获得题目
-const answer = getWordOfTheDay()
-
-// 二维数组答题板， [字母， 状态]
-const board = $ref(
-  Array.from({ length: 6 }, () =>
-    Array.from({ length: 5 }, () => ({
-      letter: '',
-      state: LetterState.INITIAL
-    }))
-  )
-)
-
-// 当前行索引
-let currentRowIndex = $ref(0)
-// 当前行
-const currentRow = $computed(() => board[currentRowIndex])
-
-// 提示消息
-let message = $ref('')
-let grid = $ref('')
-// 抖动行
-let shakeRowIndex = $ref(-1)
-let success = $ref(false)
-
-// 单词&状态键盘
-const letterStates: Record<string, LetterState> = $ref({})
-
-// Handle keyboard input.
-let allowInput = true
-
 const onKeyup = (e: KeyboardEvent) => onKey(e.key)
 
 window.addEventListener('keyup', onKeyup)
@@ -47,6 +16,62 @@ window.addEventListener('keyup', onKeyup)
 onUnmounted(() => {
   window.removeEventListener('keyup', onKeyup)
 })
+
+// 获得题目
+let answer = getWordOfTheDay()
+// 二维数组答题板， [字母， 状态]
+let board = $ref(
+    Array.from({ length: 6 }, () =>
+        Array.from({ length: 5 }, () => ({
+          letter: '',
+          state: LetterState.INITIAL
+        }))
+    )
+)
+// 当前行索引
+let currentRowIndex = $ref(0)
+// 当前行
+let currentRow = $computed(() => board[currentRowIndex])
+// 提示消息
+let message = $ref('')
+let grid = $ref('')
+// 抖动行
+let shakeRowIndex = $ref(-1)
+let success = $ref(false)
+// Handle keyboard input.
+let allowInput = $ref(true)
+// 单词&状态键盘
+let letterStates = $ref({})
+
+function init() {
+  // 二维数组答题板， [字母， 状态]
+  board = Array.from({ length: 6 }, () =>
+      Array.from({ length: 5 }, () => ({
+        letter: '',
+        state: LetterState.INITIAL
+      }))
+  )
+
+  // 当前行索引
+  currentRowIndex = 0
+  // 当前行
+  currentRow = board[currentRowIndex]
+
+  // 提示消息
+  message = ''
+  grid = ''
+  // 抖动行
+  shakeRowIndex = -1
+  success = false
+
+  // Handle keyboard input.
+  allowInput = true
+  // 单词&状态键盘
+  letterStates = {}
+}
+
+// 初始化
+init()
 
 function onKey(key: string) {
   if (!allowInput) return
@@ -186,7 +211,7 @@ function shareGrid() {
   // 动态创建 textarea 标签
   const textarea = document.createElement('textarea')
   // 将该 textarea 设为 readonly 防止 iOS 下自动唤起键盘，同时将 textarea 移出可视区域
-  textarea.readOnly = 'readonly'
+  textarea.readOnly = true
   textarea.style.position = 'absolute'
   textarea.style.left = '-9999px'
   // 将要 copy 的值赋给 textarea 标签的 value 属性
@@ -201,6 +226,12 @@ function shareGrid() {
   document.body.removeChild(textarea)
   alert('copy to clipboard!')
 }
+
+function randomWordle() {
+  answer = getRandomWord()
+  init()
+  alert('this function is for my lover ❤️ RuiXue \n Just enjoy it 😉')
+}
 </script>
 
 <template>
@@ -208,7 +239,8 @@ function shareGrid() {
     <div class="message" v-if="message">
       {{ message }}
       <pre v-if="grid">{{ grid }}</pre>
-      <button @click="shareGrid" v-if="grid">share :)</button>
+      <button @click="shareGrid" v-if="grid">share :)</button><br/><br/>
+      play it at random: <button @click="randomWordle" v-if="grid">🔀</button>
     </div>
   </Transition>
   <header class="game-header">
