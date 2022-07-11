@@ -3,11 +3,12 @@ import { onUnmounted } from 'vue'
 import { getWordOfTheDay, getRandomWord, allWords } from './words'
 import Keyboard from './Keyboard.vue'
 import { LetterState } from './types'
+import {baseURL} from "./utils/config";
 
 // dogeUI
-const dogeUI = "http://152.136.215.195:8082/dogUI/doge.gif";
+const dogeUI = baseURL + "/doge.gif";
 // dogeUrl
-const dogeSite = "http://152.136.215.195";
+const dogeSite = "https://dogedoge.site";
 
 const onKeyup = (e: KeyboardEvent) => onKey(e.key)
 

@@ -1,6 +1,10 @@
 # D🐶geordle
 
-> A Doge Wordle project
+> A Doge Wordle project1.0
+> 
+> everyday one word
+> 
+> random word
 
 ## Build Setup
 
