@@ -240,7 +240,7 @@ function randomWordle() {
     <div class="message" v-if="message">
       {{ message }}
       <pre v-if="grid">{{ grid }}</pre>
-      <button @click="shareGrid" v-if="grid">share :)</button><br/><br/>
+      <button @click="shareGrid" v-if="grid">share :)</button><br v-if="grid"/><br v-if="grid"/>
       <span v-if="grid">play it at random: </span><button @click="randomWordle" v-if="grid">🔀</button>
     </div>
   </Transition>
