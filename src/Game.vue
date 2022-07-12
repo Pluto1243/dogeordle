@@ -241,7 +241,7 @@ function randomWordle() {
       {{ message }}
       <pre v-if="grid">{{ grid }}</pre>
       <button @click="shareGrid" v-if="grid">share :)</button><br/><br/>
-      play it at random: <button @click="randomWordle" v-if="grid">🔀</button>
+      <span v-if="grid">play it at random: </span><button @click="randomWordle" v-if="grid">🔀</button>
     </div>
   </Transition>
   <header class="game-header">
