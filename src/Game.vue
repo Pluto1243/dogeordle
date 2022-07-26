@@ -231,7 +231,6 @@ function shareGrid() {
 function randomWordle() {
   answer = getRandomWord()
   init()
-  alert('this function is for my lover ❤️ RuiXue \n Just enjoy it 😉')
 }
 </script>
 
