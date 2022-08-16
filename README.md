@@ -10,7 +10,6 @@
 https://wordle.dogedoge.site/
 
 ## Build Setup
-<https://wordle.dogedoge.site/>
 ``` bash
 # install dependencies
 npm install
